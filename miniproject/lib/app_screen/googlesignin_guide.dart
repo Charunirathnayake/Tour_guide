@@ -1,13 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthProvider {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class AuthProvider_guide {
+  final FirebaseAuth _auth_guide = FirebaseAuth.instance;
 
   //logout
  /* Future<void> logout() async {
@@ -25,9 +22,9 @@ class AuthProvider {
       GoogleSignInAccount account= await googleSignIn.signIn();
       if(account==null)
       return null;
-     AuthResult res=await _auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken: (await account.authentication).idToken, 
+     AuthResult res_guide=await _auth_guide.signInWithCredential(GoogleAuthProvider.getCredential(idToken: (await account.authentication).idToken, 
       accessToken: (await account.authentication).accessToken));
-if(res.user==null)
+if(res_guide.user==null)
 return false;
 return true;
     }
@@ -36,11 +33,4 @@ print('Error Logging With Google');
 return false;
     }
   }
-
-//facebook signin
-Future<FirebaseUser> _signinwithfacebook() async{
-var facebookLogin=FacebookLogin();
-var result=await facebookLogin.isLoggedIn
-}
-
 }
