@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:miniproject/app_screen/auth_traveller.dart';
 import 'package:miniproject/app_screen/cur_nav_bar.dart';
 import 'package:miniproject/app_screen/cur_nav_bar_traveller.dart';
@@ -7,7 +8,7 @@ import 'package:miniproject/app_screen/signup_traveller.dart';
 import 'recover.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'googlesingin.dart';
-
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 
 //sketch of the login page
@@ -50,6 +51,29 @@ class Loginpage_traveller extends StatefulWidget {
 }
 
 class Loginpage_traveller_state extends State<Loginpage_traveller> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+//facebook signin
+Future<FirebaseUser> _signinwithfacebook() async{
+var facebookLogin=FacebookLogin();
+var result= await facebookLogin.logInWithReadPermissions(['public_profile']);
+debugPrint(result.status.toString());
+
+if(result.accessToken !=null){
+final authresult=await _auth.signInWithCredential(FacebookAuthProvider.getCredential(
+  accessToken:result.accessToken.token,
+));
+return authresult.user;
+                    
+
+}else{
+  throw PlatformException(code: 'ERROR ABORTED BY USER',
+  message:'Sign in aborted by user',);
+}
+
+
+}
+
   
 
   TextEditingController emailcontroler=TextEditingController();
@@ -322,7 +346,7 @@ class Loginpage_traveller_state extends State<Loginpage_traveller> {
            Padding(
             padding: EdgeInsets.only(left: 20.0,right: 20.0),
             child: OutlineButton(
-              onPressed: () {},
+              onPressed: _signinwithfacebook,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
                 side: BorderSide(color: Colors.white),

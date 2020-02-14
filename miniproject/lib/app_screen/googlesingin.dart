@@ -37,10 +37,5 @@ return false;
     }
   }
 
-//facebook signin
-Future<FirebaseUser> _signinwithfacebook() async{
-var facebookLogin=FacebookLogin();
-var result=await facebookLogin.isLoggedIn
-}
 
 }
